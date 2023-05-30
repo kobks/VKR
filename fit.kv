@@ -1,0 +1,889 @@
+<ItemLabel@Label>:
+    font_size: "25sp"
+    halign: "left"
+    valign: "middle"
+    text_size: self.size
+    background_color: (1, 1, 1, 1)
+    size_hint: 1, 0.1
+
+ScreenManager:
+    id: screen_manager
+    InfoScreen:
+        id: info_screen
+        name: 'info'
+        manager: 'screen_manager'
+    ProgramScreen:
+        id: program_screen
+        name: 'program'
+        manager: 'screen_manager'
+
+
+<InfoScreen>:
+
+    text_input_age: text_input_age
+    text_input_height: text_input_height
+    text_input_weight: text_input_weight
+    text_input_gender: text_input_gender
+    text_output_BMI: text_output_BMI
+    text_output_calorie: text_output_calorie
+
+
+    BoxLayout:
+        orientation: "vertical"
+
+        AnchorLayout:
+            size_hint: 1, 0.1
+            padding: [0, 0, 0, 0]
+            anchor_x: "center"
+            anchor_y: "top"
+            Label:
+                text: "Welcome"
+                font_size: "42sp"
+                background_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                color: (0, 0, 0, 1)
+
+
+        BoxLayout:
+            size_hint: (1, 0.05)
+            Button:
+                text: 'Generate program'
+                on_press: app.root.current = 'program'
+            Button:
+                text: 'Quit'
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                size_hint_y: 1
+                orientation: "vertical"
+                padding: [3, 3, 3, 3]
+                spacing: 3
+
+                BoxLayout:
+
+                    Label:
+                        text: "Name"
+
+                        size_hint: (0.2, 1)
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_name
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+
+
+
+                BoxLayout:
+                    Label:
+                        text: "Age"
+
+                        size_hint: (0.2, 1)
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_age
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+                    Label:
+                        text: "Height (in cm)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_height
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        text: "Weight (in kg)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_weight
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        text: "Gender (M or F)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_gender
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                BoxLayout:
+
+                    Label:
+                        text: "BMI (calculated automatically)"
+                        background_color: (1, 1, 1, 1)
+                        size_hint: (0.2, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    Label:
+                        id: text_output_BMI
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+
+                BoxLayout:
+
+                    Label:
+                        text: "Calories intake (suggested)"
+                        background_color: (1, 1, 1, 1)
+                        size_hint: (0.2, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    Label:
+                        id: text_output_calorie
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+
+                BoxLayout:
+
+                    Label:
+                        text: "Desired goals ()"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_goals
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        size_hint: 0.3, 1
+                        text: "Equipment availible"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_equip
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        font_size: "45sp"
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        size_hint: 0.3, 1
+                        text: "Level (Intermediate, Beginner, Expert)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_level
+
+                        pos_hint: {'center_x': 1, 'y': 0.3}
+                        size_hint: (.2, None)
+                        height: 30
+                        font_size: "45sp"
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+
+                BoxLayout:
+                    Button:
+                        text: "Calculate BMI and Calorie intake"
+                        font_size: 20
+
+                        on_release:
+                            root.calculate_bmi_cal()
+
+<ProgramScreen>:
+    mg_abdo: mg_abdo
+    mg_addu: mg_addu
+    mg_abdu: mg_abdu
+    mg_bice: mg_bice
+    mg_calv: mg_calv
+    mg_ches: mg_ches
+    mg_fore: mg_fore
+    mg_fore: mg_fore
+    mg_glut: mg_glut
+    mg_hams: mg_hams
+    mg_lats: mg_lats
+    mg_lbac: mg_lbac
+    mg_mbac: mg_mbac
+    mg_trap: mg_trap
+    mg_neck: mg_neck
+    mg_quad: mg_quad
+    mg_shou: mg_shou
+    mg_tric: mg_tric
+
+
+    BoxLayout:
+        orientation: "vertical"
+
+        AnchorLayout:
+            size_hint: 1, 0.1
+            padding: [0, 0, 0, 0]
+            anchor_x: "center"
+            anchor_y: "top"
+            Label:
+                text: "Suggested program"
+                font_size: "20sp"
+                background_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                color: (0, 0, 0, 1)
+
+        BoxLayout:
+            padding: 10
+            size_hint: (1, 0.1)
+            Button:
+                text: 'Return'
+            Button:
+                text: 'Info'
+                on_press: app.root.current = 'info'
+
+        BoxLayout:
+            rows: 25
+            size_hint_y: 0.9
+            orientation: "vertical"
+            padding: [3, 3, 3, 3]
+            spacing: 3
+
+
+            BoxLayout:
+                Label:
+                    text: "For Abdominals recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_abdo
+
+            BoxLayout:
+                Label:
+                    text: "For Adductors recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_addu
+
+            BoxLayout:
+                Label:
+                    text: "For Abductors recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_abdu
+
+            BoxLayout:
+                Label:
+                    text: "For Biceps recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_bice
+
+            BoxLayout:
+                Label:
+                    text: "For Calves recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_calv
+
+            BoxLayout:
+                Label:
+                    text: "For Chest recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_ches
+
+            BoxLayout:
+                Label:
+                    text: "For Forearms recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_fore
+
+            BoxLayout:
+                Label:
+                    text: "For Glutes recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_glut
+
+            BoxLayout:
+                Label:
+                    text: "For Hamstrings recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_hams
+
+            BoxLayout:
+                Label:
+                    text: "For Lats recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_lats
+
+            BoxLayout:
+                Label:
+                    text: "For Lower Back recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_lbac
+
+            BoxLayout:
+                Label:
+                    text: "For Middle Back recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_mbac
+
+            BoxLayout:
+                Label:
+                    text: "For Traps recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_trap
+
+            BoxLayout:
+                Label:
+                    text: "For Neck recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_neck
+
+            BoxLayout:
+                Label:
+                    text: "For Quadriceps recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_quad
+
+            BoxLayout:
+                Label:
+                    text: "For Shoulders recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_shou
+
+            BoxLayout:
+                Label:
+                    text: "For Triceps recommend:"
+                    background_color: (1, 1, 1, 1)
+                    size_hint: (0.8, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                Label:
+                    id: mg_tric
+
+            BoxLayout:
+
+                Label:
+                    size_hint: 0.3, 1
+                    text: "Desired goals (Strength, Plyometrics, Cardio, Stretching, \nPowerlifting, Strongman, Olympic Weightlifting)"
+                    background_color: (1, 1, 1, 1)
+                    multiline: True
+                    font_size: "11sp"
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: text_input_goals
+
+                    size_hint: (.2, None)
+                    height: 30
+                    multiline: False
+
+            BoxLayout:
+
+                size_hint: 1, 1.5
+                Label:
+                    size_hint: 0.3, 1
+                    text: "Equipment preferred (Bands, Barbell, Kettlebells, Dumbbell, \nCable, Machine, Body Only, Medicine Ball, \nExercise Ball, Foam Roll, E-Z Curl Bar)"
+                    background_color: (1, 1, 1, 1)
+                    font_size: "11sp"
+                    multiline: True
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: text_input_equip
+
+                    size_hint: (.2, None)
+                    height: 30
+                    multiline: False
+
+            BoxLayout:
+
+                Label:
+                    size_hint: 0.3, 1
+                    text: "Level (Beginner, Intermediate, Expert)"
+                    background_color: (1, 1, 1, 1)
+                    canvas.before:
+                        Color:
+                            rgba: self.background_color
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    color: (0, 0, 0, 1)
+                TextInput:
+                    id: text_input_level
+
+                    size_hint: (.2, None)
+                    height: 30
+                    multiline: False
+
+            BoxLayout:
+                Button:
+                    text: "Generate program"
+                    font_size: 20
+
+                    on_release:
+                        root.generate_program()
+
+
+<ContainerFitApp>:
+    orientation: "vertical"
+
+    text_input_age: text_input_age
+    text_input_height: text_input_height
+    text_input_weight: text_input_weight
+    text_input_gender: text_input_gender
+    text_output_BMI: text_output_BMI
+    text_output_calorie: text_output_calorie
+
+
+
+    BoxLayout:
+
+
+        orientation: "vertical"
+
+        AnchorLayout:
+            size_hint: 1, 0.1
+            padding: [0, 0, 0, 0]
+            anchor_x: "center"
+            anchor_y: "top"
+            Label:
+                text: "Welcome"
+                font_size: "42sp"
+                background_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                color: (0, 0, 0, 1)
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+
+            BoxLayout:
+                size_hint_y: 1
+                orientation: "vertical"
+                padding: [3, 3, 3, 3]
+                spacing: 3
+
+                BoxLayout:
+
+                    Label:
+                        text: "Name"
+
+                        size_hint: (0.2, 1)
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_name
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+
+
+
+                BoxLayout:
+                    Label:
+                        text: "Age"
+
+                        size_hint: (0.2, 1)
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_age
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+                    Label:
+                        text: "Height (in cm)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_height
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        text: "Weight (in kg)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_weight
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                        input_type: "number"
+                        input_filter: "int"
+
+                BoxLayout:
+
+                    Label:
+                        text: "Gender (M or F)"
+                        background_color: (1, 1, 1, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    TextInput:
+                        id: text_input_gender
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+                BoxLayout:
+
+                    Label:
+                        text: "BMI (calculated automatically)"
+                        background_color: (1, 1, 1, 1)
+                        size_hint: (0.2, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    Label:
+                        id: text_output_BMI
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+
+                BoxLayout:
+
+                    Label:
+                        text: "Calories intake (suggested)"
+                        background_color: (1, 1, 1, 1)
+                        size_hint: (0.2, 1)
+                        canvas.before:
+                            Color:
+                                rgba: self.background_color
+                            Rectangle:
+                                size: self.size
+                                pos: self.pos
+                        color: (0, 0, 0, 1)
+                    Label:
+                        id: text_output_calorie
+
+                        pos_hint: {'center_x': 1, 'y': 0.35}
+                        size_hint: (.2, None)
+                        height: 30
+                        multiline: False
+
+
+                BoxLayout:
+                    Button:
+                        text: "Calculate BMI and Calorie intake"
+                        font_size: 20
+
+                        on_release:
+                            app.root.calculate_bmi_cal()
+
+

@@ -1,0 +1,171 @@
+ScreenManager:
+    id: screen_manager
+    MenuScreen:
+        id: menu_screen
+        name: 'menu'
+        manager: 'screen_manager'
+    SettingsScreen:
+        id: settings_screen
+        name: 'settings'
+        manager: 'screen_manager'
+
+<MenuScreen>:
+    BoxLayout:
+        Label:
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            padding: 10, 10
+            text:
+                'really some amazing text\n' * 100
+
+        Button:
+            text: 'Goto settings'
+            on_press: app.root.current = 'settings'
+        Button:
+            text: 'Quit'
+
+
+<SettingsScreen>:
+    BoxLayout:
+        Button:
+            text: 'My settings button'
+        Button:
+            text: 'Back to menu'
+            on_press: app.root.current = 'menu'
+
+
+<ItemLabel@Label>:
+    font_size: "25sp"
+    halign: "left"
+    valign: "middle"
+    text_size: self.size
+
+<ContainerApp>:
+    rows: 3
+
+    text_input: text_input
+    salt: salt
+    nitro: nitro
+    dextrose: dextrose
+    start: start
+    salting_time: salting_time
+
+    AnchorLayout:
+        size_hint: 1, 0.15
+        TextInput:
+            id: text_input
+            font_size: "45sp"
+            multiline: False
+            input_type: "number"
+            input_filter: "int"
+
+    GridLayout:
+        cols: 2
+
+        BoxLayout:
+            orientation: "vertical"
+
+            padding: [30, 0, 0, 0]
+
+            ItemLabel:
+                text: "Соль"
+
+            ItemLabel:
+                text: "Нитритная соль"
+
+            ItemLabel:
+                text: "Моносахар"
+
+            ItemLabel:
+                text: "Старты"
+
+            ItemLabel:
+                text: "Время засола"
+
+
+        BoxLayout:
+
+            orientation: "vertical"
+            size_hint: 0.5, 1
+
+            ItemLabel:
+                id: salt
+                text: "0"
+
+            ItemLabel:
+                id: nitro
+                text: "0"
+
+            ItemLabel:
+                id: dextrose
+                text: "0"
+
+            ItemLabel:
+                id: start
+                text: "0"
+
+            ItemLabel:
+                id: salting_time
+                text: "0"
+
+
+    BoxLayout:
+        size_hint: 0.9, 0.15
+        padding: [30, 0, 20, 20]
+        Button:
+            text: "Go!"
+            font_size: 40
+
+            on_release:
+                root.calculate()
+
+
+
+
+<Container2>:
+    rows: 3
+    padding: 50
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        Label:
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            padding: 10, 10
+            text:
+                'really some amazing text\n' * 100
+
+
+
+
+
+<Container>:
+    orientation: 'vertical'
+    padding: 50
+    spacing: 50
+
+    Button:
+        size_hint: 0.5, 1
+        text: 'Hello'
+
+    Button:
+        text: 'World'
+
+
+
+<Container1>:
+
+    Button:
+        size_hint: 0.3, 0.3
+        pos: 100, 100
+        text: 'Hello'
+
+    Button:
+        size_hint: 0.1, 0.1
+        pos: 400, 100
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        text: 'World'
